@@ -1,0 +1,546 @@
+/* herb-detail.css — สไตล์เฉพาะหน้ารายละเอียดสมุนไพรแต่ละชนิด */
+
+/* ============================================================
+   Breadcrumb / Back Button
+   ============================================================ */
+.breadcrumb-section {
+  padding: 16px 0 8px;
+}
+
+.back-home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #fdfbf7;
+  border: 1.5px solid #e2d2b8;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #3f553a;
+  transition: all 0.2s ease;
+}
+
+@media (hover: hover) {
+  .back-home-link:hover {
+    background: #204e33;
+    color: #ffffff;
+    border-color: #204e33;
+    transform: translateX(-3px);
+  }
+}
+
+/* ============================================================
+   Detail Layout — 2 Column (Left photo + Right info)
+   ============================================================ */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 32px;
+  margin-top: 10px;
+  margin-bottom: 72px;
+  align-items: start;
+}
+
+/* ============================================================
+   Left Column — Photo & Identity Card
+   ============================================================ */
+.detail-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Photo Card */
+.detail-photo-card {
+  background: #faf3e4;
+  border: 2.5px solid #e2cba8;
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.photo-label-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: rgba(0,0,0,0.55);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.3px;
+  z-index: 2;
+}
+
+.detail-photo-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #e8f5e3;
+}
+
+.detail-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 8-bit art badge overlapping bottom-right of photo */
+.pixel-art-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 76px;
+  background: #fdf5e3;
+  border: 2.5px solid #c9a96e;
+  border-radius: 14px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.pixel-art-badge svg {
+  image-rendering: pixelated;
+  display: block;
+}
+
+.pixel-badge-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #7a5c28;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Identity Info below photo */
+.detail-identity-box {
+  background: #fdf8ef;
+  border: 2px solid #e2d0b0;
+  border-radius: 20px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.herb-name-th {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #213c23;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.herb-name-en {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3c6830;
+  margin-bottom: 8px;
+}
+
+.herb-sci-name {
+  font-size: 0.84rem;
+  font-style: italic;
+  color: #7a8f78;
+  margin-bottom: 2px;
+}
+
+.herb-family {
+  font-size: 0.84rem;
+  color: #7a8f78;
+  margin-bottom: 14px;
+}
+
+.herb-attr-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.herb-attr-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6a7c67;
+}
+
+.attr-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.attr-tag-taste {
+  background: #fbf0dc;
+  color: #92580a;
+  border: 1.5px solid #ebd3a7;
+}
+
+.attr-tag-cool {
+  background: #eaf5fc;
+  color: #1a6b99;
+  border: 1.5px solid #c2e2f5;
+}
+
+.attr-tag-hot {
+  background: #fdeee9;
+  color: #b5381d;
+  border: 1.5px solid #fad2c6;
+}
+
+.attr-tag-warm {
+  background: #fef7e6;
+  color: #9c6c14;
+  border: 1.5px solid #f9e3ab;
+}
+
+/* ============================================================
+   Right Column — Tabs & Content
+   ============================================================ */
+.detail-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Parchment-style tab panel container */
+.detail-tab-panel {
+  background: #fdf5e3;
+  border: 2.5px solid #c9a96e;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* Tab Headers */
+.tab-header-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 2.5px solid #c9a96e;
+  background: #f5e9ce;
+}
+
+.tab-btn {
+  padding: 14px 8px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: var(--font-rounded);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #8c6d2f;
+  border-right: 2px solid #c9a96e;
+  transition: all 0.2s ease;
+  line-height: 1.25;
+}
+
+.tab-btn:last-child {
+  border-right: none;
+}
+
+.tab-btn .tab-th {
+  display: block;
+  font-size: 0.95rem;
+  color: #5a4215;
+}
+
+.tab-btn .tab-en {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #a07c3a;
+  margin-top: 2px;
+}
+
+.tab-btn.active {
+  background: #fdf5e3;
+  color: #3d2b05;
+  border-bottom: 3px solid #fdf5e3;
+  margin-bottom: -2.5px;
+  position: relative;
+}
+
+.tab-btn.active .tab-th {
+  color: #3d2b05;
+}
+
+.tab-btn.active .tab-en {
+  color: #7a5c28;
+}
+
+@media (hover: hover) {
+  .tab-btn:not(.active):hover {
+    background: #fbedce;
+    color: #3d2b05;
+  }
+}
+
+/* Tab Content Panels */
+.tab-content-wrap {
+  padding: 28px 32px;
+  min-height: 280px;
+}
+
+.tab-pane {
+  display: none;
+  animation: fadeTabIn 0.2s ease;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeTabIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Properties Tab ---- */
+.prop-section-heading {
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: #3c5e38;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prop-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.prop-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #3b4f38;
+  line-height: 1.5;
+}
+
+.prop-list li::before {
+  content: "•";
+  color: #387b3e;
+  font-weight: 900;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+/* Usage Section Inside Properties Tab */
+.usage-heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4a3608;
+  margin: 20px 0 10px;
+  padding-top: 18px;
+  border-top: 2px dashed #d4b87a;
+}
+
+.usage-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.usage-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.usage-list li::before {
+  content: "•";
+  color: #7a5c28;
+  font-weight: 900;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.usage-th {
+  color: #3b4f38;
+  display: block;
+}
+
+.usage-en {
+  color: #728470;
+  font-size: 0.82rem;
+  display: block;
+  margin-top: 1px;
+}
+
+/* Warning Box inside Properties Tab */
+.precaution-box {
+  background: #fff8f0;
+  border: 2px solid #f5b97d;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-top: 20px;
+}
+
+.precaution-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #b05010;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.precaution-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.precaution-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.87rem;
+  line-height: 1.5;
+}
+
+.precaution-list li::before {
+  content: "•";
+  color: #c5610f;
+  font-weight: 900;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.precaution-th {
+  color: #7a3f10;
+  display: block;
+}
+
+.precaution-en {
+  color: #b06030;
+  font-size: 0.82rem;
+  display: block;
+  margin-top: 1px;
+}
+
+/* ---- Usage & Data Tab ---- */
+.usage-data-section {
+  margin-bottom: 24px;
+}
+
+.usage-data-section:last-child {
+  margin-bottom: 0;
+}
+
+.usage-data-heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4a3608;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed #d4b87a;
+}
+
+.info-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-chip {
+  background: #ffffff;
+  border: 1.5px solid #e0cca8;
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+
+.info-chip-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #9a7840;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.info-chip-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #3b4f38;
+  line-height: 1.4;
+}
+
+/* ---- Precautions Tab ---- */
+.precaution-tab-box {
+  background: #fff8f0;
+  border: 2px solid #f5b97d;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+.precaution-tab-title {
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: #b05010;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1024px) {
+  .detail-layout {
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 860px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .detail-photo-wrap {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (max-width: 600px) {
+  .tab-content-wrap {
+    padding: 20px 18px;
+  }
+
+  .info-row-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-btn {
+    font-size: 0.78rem;
+    padding: 10px 4px;
+  }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title id="page-title">สมุนไพร - Little Roots</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&amp;family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap"
+      rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="herb-detail.css" rel="stylesheet">
+  </head>
+  <body data-nav="herbs">
+    <!-- เมนูด้านบน -->
+    <div id="site-header"></div>
+    <script src="header.js"></script>
+
+    <!-- Breadcrumb / Back button -->
+    <div class="container breadcrumb-section">
+      <a class="back-home-link" href="herb.html">
+        <span>← ย้อนกลับไปหน้าพืชสมุนไพร / Back to Medicinal Plants</span>
+      </a>
+    </div>
+
+    <!-- Main Detail Layout -->
+    <div class="container">
+      <div class="detail-layout">
+
+        <!-- ===== Left Column: Photo + Identity ===== -->
+        <div class="detail-left-col">
+
+          <!-- Photo Card -->
+          <div class="detail-photo-card">
+            <span class="photo-label-badge">รูปภาพจริง / Real Photo</span>
+            <div class="detail-photo-wrap">
+              <img alt="" id="detail-photo" src="">
+              <!-- 8-bit pixel art badge (bottom-right of photo) -->
+              <div class="pixel-art-badge">
+                <div id="detail-pixel-svg"></div>
+                <span class="pixel-badge-label">ภาพ 8-bit<br>8-bit Art</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Identity Info -->
+          <div class="detail-identity-box">
+            <div class="herb-name-th" id="detail-name-th">—</div>
+            <div class="herb-name-en" id="detail-name-en">—</div>
+            <div class="herb-sci-name" id="detail-sci-name">—</div>
+            <div class="herb-family" id="detail-family">Family: —</div>
+            <div class="herb-attr-row">
+              <span class="herb-attr-label">Common attributes:</span>
+              <span class="attr-tag attr-tag-taste" id="detail-taste">—</span>
+              <span class="attr-tag" id="detail-property">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Right Column: Tabs ===== -->
+        <div class="detail-right-col">
+          <div class="detail-tab-panel">
+
+            <!-- Tab Headers -->
+            <div class="tab-header-row" role="tablist">
+              <button class="tab-btn active" data-tab="properties" role="tab" type="button">
+                <span class="tab-th">สรรพคุณ</span>
+                <span class="tab-en">Properties</span>
+              </button>
+              <button class="tab-btn" data-tab="usage" role="tab" type="button">
+                <span class="tab-th">วิธีใช้ &amp; ข้อมูล</span>
+                <span class="tab-en">Usage &amp; Data</span>
+              </button>
+              <button class="tab-btn" data-tab="precautions" role="tab" type="button">
+                <span class="tab-th">ข้อควรระวัง</span>
+                <span class="tab-en">Precautions</span>
+              </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content-wrap">
+
+              <!-- Tab 1: Properties -->
+              <div class="tab-pane active" id="tab-properties" role="tabpanel">
+                <div class="prop-section-heading">สรรพคุณหลัก / Main Properties</div>
+                <ul class="prop-list" id="prop-list">
+                  <!-- filled by JS -->
+                </ul>
+
+                <div class="usage-heading">วิธีใช้ &amp; วิธีเตรียม / Usage &amp; Preparation</div>
+                <ul class="usage-list" id="usage-list-props">
+                  <!-- filled by JS -->
+                </ul>
+
+                <div class="precaution-box">
+                  <div class="precaution-title">⚠️ ข้อควรระวัง / Precautions</div>
+                  <ul class="precaution-list" id="precaution-list-props">
+                    <!-- filled by JS -->
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Tab 2: Usage & Data -->
+              <div class="tab-pane" id="tab-usage" role="tabpanel">
+                <div class="usage-data-section">
+                  <div class="usage-data-heading">วิธีใช้ &amp; วิธีเตรียม / Usage &amp; Preparation</div>
+                  <ul class="usage-list" id="usage-list-data">
+                    <!-- filled by JS -->
+                  </ul>
+                </div>
+                <div class="usage-data-section">
+                  <div class="usage-data-heading">ข้อมูลทางพฤกษศาสตร์ / Botanical Data</div>
+                  <div class="info-row-grid" id="botanical-grid">
+                    <!-- filled by JS -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 3: Precautions -->
+              <div class="tab-pane" id="tab-precautions" role="tabpanel">
+                <div class="precaution-tab-box">
+                  <div class="precaution-tab-title">⚠️ ข้อควรระวัง / Precautions</div>
+                  <ul class="precaution-list" id="precaution-list-tab">
+                    <!-- filled by JS -->
+                  </ul>
+                </div>
+              </div>
+
+            </div><!-- /tab-content-wrap -->
+          </div><!-- /detail-tab-panel -->
+        </div><!-- /detail-right-col -->
+      </div><!-- /detail-layout -->
+    </div><!-- /container -->
+
+    <!-- Footer -->
+    <div id="site-footer"></div>
+    <script src="footer.js"></script>
+
+    <!-- Data + Detail Script -->
+    <script src="herb-data.js"></script>
+    <script src="herb-detail.js"></script>
+  </body>
+</html>
