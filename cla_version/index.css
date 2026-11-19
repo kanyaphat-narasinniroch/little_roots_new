@@ -50,6 +50,44 @@
   align-items: center;
   gap: 12px;
   transition: all 0.25s ease;
+  position: relative;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-top: 6px;
+  padding: 0;
+  list-style: none;
+  max-height: 380px; /* ขยายความสูงให้โชว์ได้เยอะขึ้น (ประมาณ 8-10 รายการ) */
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  display: none;
+}
+
+.search-suggestions li {
+  padding: 8px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.search-suggestions li:last-child {
+  border-bottom: none;
+}
+
+.search-suggestions li:hover {
+  background-color: #f4f9f4;
+  color: #2e7d32;
+  font-weight: bold;
 }
 
 .search-bar-game:focus-within {
@@ -91,6 +129,7 @@
   box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
 }
 
+
 @media (hover: hover) {
   .search-btn-round:hover {
     background: #f0deb8;
@@ -101,7 +140,7 @@
 /* RPG NPC Speech Bubble */
 .hero-npc-container {
   position: absolute;
-  right: 40px;
+  right: -100px;
   bottom: -45px;
   margin: -40px ;
   display: flex;

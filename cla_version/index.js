@@ -48,11 +48,107 @@ const PLANTS = [
 ];
 
 (function () {
+  const searchContainer = document.querySelector(".search-bar-game");
   const input = document.querySelector(".search-bar-game input");
   const button = document.querySelector(".search-btn-round");
-  if (!input || !button) return;
+  if (!searchContainer || !input || !button) return;
 
+  // 1. สร้างกล่องรายการคำแนะนำ
+  const suggestionBox = document.createElement("ul");
+  suggestionBox.className = "search-suggestions";
+  searchContainer.appendChild(suggestionBox);
+
+  // 2. ฟังก์ชันลบสระลอยและวรรณยุกต์ (เช่น "ฟร้" -> "ฟร")
+  function stripMarks(str) {
+    return str.normalize("NFD").replace(/[\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]/g, "");
+  }
+
+  // 3. ฟังก์ชันคำนวณระยะห่างความผิดเพี้ยนของคำ (Levenshtein Distance)
+  function getEditDistance(a, b) {
+    const matrix = Array.from({ length: a.length + 1 }, () => []);
+    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return matrix[a.length][b.length];
+  }
+
+  // 4. ฟังก์ชันโชว์คำแนะนำตอนพิมพ์ (รองรับพิมพ์ผิด + ค้นหาจากข้อมูลพืช + โชว์เยอะขึ้น)
+  function showSuggestions() {
+    const rawKeyword = input.value.trim().toLowerCase();
+    suggestionBox.innerHTML = "";
+    input.setCustomValidity("");
+
+    if (!rawKeyword) {
+      suggestionBox.style.display = "none";
+      return;
+    }
+
+    const cleanKeyword = stripMarks(rawKeyword);
+
+    const scoredMatches = PLANTS.map((plant) => {
+      const name = plant.name.toLowerCase();
+      const info = (plant.info || "").toLowerCase();
+      const cleanName = stripMarks(name);
+      const cleanInfo = stripMarks(info);
+
+      // ตรงตัวในชื่อพืช
+      if (name.includes(rawKeyword)) return { plant, score: 0 };
+      // ตรงตัวแบบไม่สนสระ/วรรณยุกต์
+      if (cleanName.includes(cleanKeyword)) return { plant, score: 0.5 };
+
+      // เทียบความใกล้เคียงเผื่อพิมพ์ผิด
+      const namePrefix = cleanName.slice(0, cleanKeyword.length);
+      const distance = getEditDistance(cleanKeyword, namePrefix);
+      const maxAllowedErrors = cleanKeyword.length >= 3 ? 2 : 1;
+
+      if (distance <= maxAllowedErrors) {
+        return { plant, score: distance };
+      }
+
+      // หาในคำอธิบาย (info) เพิ่มเติม
+      if (info.includes(rawKeyword) || cleanInfo.includes(cleanKeyword)) {
+        return { plant, score: 2.5 };
+      }
+
+      return null;
+    })
+      .filter((item) => item !== null)
+      .sort((a, b) => a.score - b.score);
+
+    if (scoredMatches.length === 0) {
+      suggestionBox.style.display = "none";
+      return;
+    }
+
+    scoredMatches.forEach(({ plant }) => {
+      const li = document.createElement("li");
+      li.textContent = plant.name;
+
+      li.addEventListener("click", () => {
+        input.value = plant.name;
+        suggestionBox.style.display = "none";
+        search();
+      });
+
+      suggestionBox.appendChild(li);
+    });
+
+    suggestionBox.style.display = "block";
+  }
+
+  // 5. ฟังก์ชันค้นหาหลักเมื่อกดปุ่มหรือกด Enter
   function search() {
+    suggestionBox.style.display = "none";
     const keyword = input.value.trim();
     if (!keyword) {
       input.focus();
@@ -60,29 +156,39 @@ const PLANTS = [
     }
 
     // หาพืชที่ชื่อหรือข้อมูลมีคำที่พิมพ์
-    const hits = PLANTS.filter((plant) => (plant.name + " " + plant.info).toLowerCase().includes(keyword.toLowerCase()));
+    const hits = PLANTS.filter((plant) =>
+      (plant.name + " " + plant.info).toLowerCase().includes(keyword.toLowerCase())
+    );
     if (hits.length === 0) {
       input.setCustomValidity("ไม่พบพืชที่ค้นหา ลองพิมพ์คำอื่นดูนะ");
       input.reportValidity();
       return;
     }
 
-    // เลือกหน้าที่เจอพืชมากที่สุด (ถ้าเท่ากัน เลือกหน้าที่เจอก่อน)
+    // เลือกหน้าที่เจอพืชมากที่สุด
     const countByPage = {};
     hits.forEach((plant) => {
       countByPage[plant.page] = (countByPage[plant.page] || 0) + 1;
     });
     const bestPage = Object.keys(countByPage).sort((a, b) => countByPage[b] - countByPage[a])[0];
 
-    document.body.classList.add("leaving"); // เฟดหน้าออกเหมือนตอนกดลิงก์
+    document.body.classList.add("leaving");
     setTimeout(() => {
       location.href = bestPage + "?q=" + encodeURIComponent(keyword);
     }, 150);
   }
 
+  // Event Listeners
+  input.addEventListener("input", showSuggestions);
   button.addEventListener("click", search);
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") search();
   });
-  input.addEventListener("input", () => input.setCustomValidity("")); // ล้างข้อความเตือนเมื่อพิมพ์ใหม่
+
+  // ปิดกล่องคำแนะนำเมื่อคลิกพื้นที่ว่างข้างนอก
+  document.addEventListener("click", (e) => {
+    if (!searchContainer.contains(e.target)) {
+      suggestionBox.style.display = "none";
+    }
+  });
 })();
